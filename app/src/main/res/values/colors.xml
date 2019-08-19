@@ -3,8 +3,13 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="appColor">#F89204</color>
+    <color name="appColor">#2196F3</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-    <color name="background_color">#8B8787</color>
+    <color name="background_color">#CB0F0E0E</color>
+    <color name="colorBrand">#F89204</color>
+    <color name="drawer">#f58808</color>
+    <color name="main">#F2111610</color>
+    <color name="stoke">#979797</color>
+    <color name="add">#F57C00</color>
 </resources>

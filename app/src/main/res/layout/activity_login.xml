@@ -5,12 +5,12 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
-        tools:context=".LoginActivity">
+        android:background="@color/appColor"
+        tools:context=".ui.activities.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="220dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/round"
@@ -38,100 +38,75 @@
                     android:id="@+id/imgTeacherProfile"/>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:background="@drawable/round_layout"
-            android:orientation="horizontal"
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputEmail"
+            style="@style/EditText.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/colorBrand"
             tools:ignore="MissingConstraints"
-            android:layout_marginTop="60dp"
-            android:weightSum="3"
+            android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp" android:id="@+id/linearLayout">
-        <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:srcCompat="@drawable/email"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                tools:layout_editor_absoluteY="330dp"
-                tools:layout_editor_absoluteX="57dp"
-                android:id="@+id/imgEmail"
-                tools:ignore="MissingConstraints"/>
-        <EditText
-                android:layout_width="200dp"
-                android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:hint="@string/edt_hint_email"
                 android:inputType="textEmailAddress"
-                android:ems="10"
-                android:layout_gravity="center"
-                android:hint="Email"
-                android:layout_marginLeft="20dp"
-                tools:layout_editor_absoluteY="330dp"
-                tools:layout_editor_absoluteX="141dp"
-                android:id="@+id/edtEmail"
-                tools:ignore="MissingConstraints"/>
+                android:textAlignment="viewStart"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:background="@drawable/round_layout"
-            android:orientation="horizontal"
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputPassword"
+            style="@style/EditText.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/colorBrand"
             tools:ignore="MissingConstraints"
-            android:weightSum="3"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp"
-            android:id="@+id/linearLayout2">
-        <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:srcCompat="@drawable/key"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                tools:layout_editor_absoluteY="330dp"
-                tools:layout_editor_absoluteX="57dp"
-                android:id="@+id/imgPassword"
-                tools:ignore="MissingConstraints"/>
-        <EditText
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:inputType="textPassword"
-                android:ems="10"
-                android:layout_gravity="center"
-                android:hint="Password"
-                android:layout_marginLeft="20dp"
-                tools:layout_editor_absoluteY="330dp"
-                tools:layout_editor_absoluteX="141dp"
-                android:id="@+id/edtPassword"
-                tools:ignore="MissingConstraints"/>
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp">
 
-    </LinearLayout>
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:hint="@string/edt_hint_password"
+                android:inputType="textEmailAddress"
+                android:textAlignment="viewStart"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
             android:text="Login"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:id="@+id/btnLogin"
             android:background="@drawable/round_layout"
-            android:backgroundTint="@color/appColor"
+            android:backgroundTint="@color/add"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginRight="18dp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            android:textAllCaps="false"/>
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
+            android:textAllCaps="false"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/inputPassword"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
