@@ -16,22 +16,30 @@ import android.view.WindowManager
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide.init
 import com.example.teamproject.R
+import com.example.teamproject.models.Admin
 import com.example.teamproject.models.ImageModel
 import com.example.teamproject.ui.adapters.SlidingImage_Adapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var imageModelArrayList: ArrayList<ImageModel>? = null
-
     companion object {
-
         private var mPager: ViewPager? = null
         private var currentPage = 0
         private var NUM_PAGES = 0
+        val ADMIN_LIST = "admin_list"
+        val EMAIL = "email"
+        fun newActivity(
+            context: LoginActivity,email:String): Intent {
+            val intent = Intent(context, TeacherProfileActivity::class.java)
+            intent.putExtra(EMAIL,email)
+            return intent
+        }
     }
 
     private val myImageList = intArrayOf(
@@ -47,11 +55,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
+                finish()
            }
             R.id.navigation_dashboard -> {
                 val intent = Intent(this, SectionActivity::class.java)
                 startActivity(intent)
                 return@OnNavigationItemSelectedListener false
+               // finish()
             }
             R.id.navigation_notifications -> {
                 val intent = Intent(this, AdminUserListActivity::class.java)
@@ -68,10 +78,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-
+        toolbar.title = "Talent Management System"
         bottom_nav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
         imageModelArrayList = ArrayList()
         imageModelArrayList = populateList()
 
@@ -86,7 +94,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
         navView.setNavigationItemSelectedListener(this)
     }
 
@@ -126,7 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (currentPage == NUM_PAGES) {
                 currentPage = 0
             }
-            mPager!!.setCurrentItem(currentPage++, true)
+//            mPager!!.setCurrentItem(currentPage++, true)
         }
         val swipeTimer = Timer()
         swipeTimer.schedule(object : TimerTask() {
@@ -181,10 +188,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_logout -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                finish()
+
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
 }

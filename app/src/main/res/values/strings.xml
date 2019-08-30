@@ -13,8 +13,33 @@
     <string name="menu_gallery">About As</string>
     <string name="menu_slideshow">Help</string>
     <string name="menu_tools">Logout</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+
+    <string-array name="course_name">
+        <item>Spring</item>
+        <item>HTML</item>
+        <item>CSS</item>
+        <item>Kotlin</item>
+        <item>Architecture</item>
+        <item>Firebase</item>
+    </string-array>
+
+    <string-array name="track_name">
+        <item>Android</item>
+        <item>Java</item>
+        <item>PHP</item>
+    </string-array>
+    <string-array name="batch_no">
+        <item>Batch-1</item>
+        <item>Batch-2</item>
+        <item>Batch-3</item>
+    </string-array>
+    <string-array name="skill">
+        <item>Excellent</item>
+        <item>Very Good</item>
+        <item>Good</item>
+        <item>Average</item>
+        <item>Poor</item>
+    </string-array>
 
     <string name="edt_hint_email">Email</string>
     <string name="edt_hint_password">Password</string>

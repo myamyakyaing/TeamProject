@@ -26,14 +26,14 @@ class AboutAsActivity : AppCompatActivity() {
             startActivity(intent)
         }
         imgChrome.setOnClickListener {
-            val url = "https://www.google.com"
+            val url = "http://10.10.21.97:8080/TalentManagementSystem"
             val intent = Intent(Intent.ACTION_WEB_SEARCH)
             intent.data = Uri.parse(url)
             startActivity(intent)
         }
         imgPhone.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:09459203722")
+            intent.data = Uri.parse("tel:891867346")
             startActivity(intent)
         }
     }

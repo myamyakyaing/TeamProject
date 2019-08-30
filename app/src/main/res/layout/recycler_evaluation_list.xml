@@ -1,148 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+        android:orientation="vertical"
         android:layout_margin="8dp"
         app:cardCornerRadius="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_margin="8dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
             android:layout_height="match_parent">
-        <TextView
-                android:text="Student Name :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textSize="18sp"/>
-        <TextView
-                android:text="Ma Mya Mya Kyaing"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_ev_name" app:layout_constraintStart_toEndOf="@+id/textView"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp" android:textSize="18sp"/>
-        <TextView
-                android:text="Start Date :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView19" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                android:textSize="18sp" app:layout_constraintTop_toBottomOf="@+id/textView23"
-                android:layout_marginTop="8dp"/>
-        <TextView
-                android:text="16/8/2019"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txtStartDate" app:layout_constraintStart_toEndOf="@+id/textView19"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                android:textSize="18sp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView23"/>
-        <TextView
-                android:text="End Date :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView21" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView19" android:layout_marginTop="8dp"
-                android:textSize="18sp"/>
-        <TextView
-                android:text="30/8/2019"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txtEndDate" app:layout_constraintStart_toEndOf="@+id/textView21"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/txtStartDate" android:textSize="18sp"/>
-        <TextView
-                android:text="Track Name :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView23" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                android:textSize="18sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_ev_track"
-                app:layout_constraintStart_toEndOf="@+id/textView23"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                android:text="Android" android:textSize="18sp"
-                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/txt_ev_name"/>
-        <TextView
-                android:text="Batch Number :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView25"
-                android:textSize="18sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView21" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
-        <TextView
-                android:text="Batch-1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_ev_batch" app:layout_constraintStart_toEndOf="@+id/textView25"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                android:textSize="18sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/txtEndDate"/>
-        <TextView
-                android:text="Good"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_ev_soft"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/txt_ev_batch" android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/textView13" android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"/>
-        <TextView
-                android:text="Average"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_ev_hard"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/txt_ev_soft" android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/textView20" android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"/>
-        <TextView
-                android:text="Excellent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_ev_rule" app:layout_constraintStart_toEndOf="@+id/textView25"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/txt_ev_hard" android:textSize="18sp"/>
-        <TextView
-                android:text="Soft Skill :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView13" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView25" android:layout_marginTop="8dp"
-                android:textSize="18sp"/>
-        <TextView
-                android:text="Hard Skill :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView20" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" android:layout_marginTop="8dp"
-                android:textSize="18sp"/>
-        <TextView
-                android:text="Following Rule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView20" android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp" android:textSize="18sp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="Student Name :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="18sp"/>
+            <TextView
+                    android:text="Ma Mya Mya Kyaing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/style_american"
+                    android:id="@+id/txt_ev_name" app:layout_constraintStart_toEndOf="@+id/textView"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp" android:textSize="18sp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="Track Name :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView23" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_ev_track"
+                    android:fontFamily="@font/style_american"
+                    app:layout_constraintStart_toEndOf="@+id/textView23"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    android:text="Android" android:textSize="18sp"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/txt_ev_name"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="Batch Number :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView25"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23" android:layout_marginTop="8dp"/>
+            <TextView
+                    android:text="Batch-1"
+                    android:fontFamily="@font/style_american"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_ev_batch" app:layout_constraintStart_toEndOf="@+id/textView25"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_ev_track" android:layout_marginTop="8dp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="Soft Skill :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView13" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView25" android:layout_marginTop="8dp"
+                    android:textSize="18sp"/>
+            <TextView
+                    android:text="Good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_ev_soft"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/style_american"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_ev_batch" android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView13" android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="Hard Skill :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView20" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" android:layout_marginTop="8dp"
+                    android:textSize="18sp"/>
+            <TextView
+                    android:text="Average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_ev_hard"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/style_american"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_ev_soft" android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView20" android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="Following Rule:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView22"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp" android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"/>
+            <TextView
+                    android:text="Excellent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/style_american"
+                    android:id="@+id/txt_ev_rule" app:layout_constraintStart_toEndOf="@+id/textView25"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_ev_hard" android:textSize="18sp"
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
