@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.teamproject.models.Student
 import com.example.teamproject.models.StudentList
 import com.example.teamproject.network.ApiService
 import com.example.teamproject.network.RestAdapter
@@ -98,23 +99,12 @@ class StudentListActivity : AppCompatActivity() {
             .setPositiveButton("OK") { _, _ ->
                 val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
                 val postCall = apiSingleCalls.deleteIndevidualStudent(studentList.id!!)
-                postCall.enqueue(object : Callback<StudentList> {
-
-                    override fun onResponse(call: Call<StudentList>, response: Response<StudentList>) {
-                        if (response.isSuccessful) {
-
-                            if (response?.body() != null) {
-                                Toast.makeText(this@StudentListActivity, "Response Successful", Toast.LENGTH_SHORT)
-                                    .show()
-                            } else {
-                                Toast.makeText(this@StudentListActivity, "Response Failed", Toast.LENGTH_SHORT).show()
-                            }
-
-                        }
-
+                postCall.enqueue(object : Callback<List<StudentList>> {
+                    override fun onResponse(call: Call<List<StudentList>>, response: Response<List<StudentList>>) {
+                            studentListAdapter.setStudentListItems(response.body()!!)
                     }
 
-                    override fun onFailure(call: Call<StudentList>, t: Throwable) {
+                    override fun onFailure(call: Call<List<StudentList>>, t: Throwable) {
                         Log.d("Error", "Network Error")
                     }
                 })

@@ -32,12 +32,12 @@
                     android:layout_marginTop="8dp"
                     android:layout_gravity="center"
                     android:layout_height="100dp">
-            <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    app:srcCompat="@drawable/android"
-                    android:id="@+id/add_imgTrainer"
-                    android:layout_gravity="center"/>
+                <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:srcCompat="@drawable/android"
+                        android:id="@+id/add_imgTrainer"
+                        android:layout_gravity="center"/>
             </com.google.android.material.card.MaterialCardView>
             <EditText
                     android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                     android:ems="10"
                     android:id="@+id/edt_add_techNrc"
                     android:layout_marginTop="5dp"
-                     android:layout_marginStart="8dp"
+                    android:layout_marginStart="8dp"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"/>
@@ -188,98 +188,104 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintTop_toBottomOf="@+id/trainer_group"
                     android:layout_marginTop="5dp"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                     android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_height="wrap_content">
+                <TextView
+                        android:text="Course Name:"
+                        android:textSize="18sp"
+                        android:layout_marginTop="3dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="8dp"
                         android:layout_height="wrap_content">
-                    <TextView
-                            android:text="Course Name:"
-                            android:textSize="18sp"
-                            android:layout_marginTop="3dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
                     <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginLeft="8dp"
                             android:id="@+id/t_course_spinner"
                             android:layout_marginTop="5dp"/>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <View
-                    android:layout_width="match_parent"
-                    android:background="@drawable/straight"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
+                    <View
+                            android:layout_width="250dp"
+                            android:background="@drawable/straight"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp">
 
-            </View>
-            <androidx.constraintlayout.widget.ConstraintLayout
+                    </View>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
                     android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_height="wrap_content">
+                <TextView
+                        android:text="Batch Name:"
+                        android:textSize="18sp"
+                        android:layout_marginTop="3dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="18dp"
                         android:layout_height="wrap_content">
-                    <TextView
-                            android:text="Batch Name:"
-                            android:textSize="18sp"
-                            android:layout_marginTop="3dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
                     <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginLeft="8dp"
                             android:id="@+id/t_batch_spinner"
                             android:layout_marginTop="5dp"/>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <View
-                    android:layout_width="match_parent"
-                    android:background="@drawable/straight"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
+                    <View
+                            android:layout_width="250dp"
+                            android:background="@drawable/straight"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp">
 
-            </View>
-            <androidx.constraintlayout.widget.ConstraintLayout
+                    </View>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
                     android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_height="wrap_content">
+                <TextView
+                        android:text="Track Name:"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                 <LinearLayout
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="18dp"
                         android:layout_height="wrap_content">
-                    <TextView
-                            android:text="Track Name:"
-                            android:textSize="18sp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="3dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
                     <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:id="@+id/t_track_spinner"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="5dp"/>
+                    <View
+                            android:layout_width="250dp"
+                            android:background="@drawable/straight"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp">
+                    </View>
                 </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <View
-                    android:layout_width="match_parent"
-                    android:background="@drawable/straight"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp">
-            </View>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <Button
@@ -291,7 +297,7 @@
             app:layout_constraintTop_toTopOf="@+id/include7"
             app:layout_constraintEnd_toEndOf="@+id/include7"
             android:textColor="@color/white"
-            android:background="@color/main"
+            android:background="@drawable/add_button_press_state"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="@+id/include7"
     />

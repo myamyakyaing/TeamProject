@@ -13,7 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teamproject.R
 import com.example.teamproject.models.Course
+import com.example.teamproject.models.CourseData
 import com.example.teamproject.models.CourseDetail
+import com.example.teamproject.models.CourseDetailData
 import com.example.teamproject.network.ApiService
 import com.example.teamproject.network.RestAdapter
 import com.example.teamproject.ui.adapters.CourseDetailListAdapter
@@ -25,8 +27,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CourseDetailActivity : AppCompatActivity() {
+    val courseDetail:List<CourseDetail>? = null
     var id :Int = 0
-    val courseDetailListAdapter: CourseDetailListAdapter = CourseDetailListAdapter()
+    private val courseDetailListAdapter: CourseDetailListAdapter by lazy { CourseDetailListAdapter(this::onClickItem, this::onLongClickItem) }
     companion object {
         var trackId:Int = 0
         val COURSE_LIST = "course_list"
@@ -79,10 +82,55 @@ class CourseDetailActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    fun onClickItem(courseDetail:CourseDetail){
+        Log.d("EEEEERFGBJJ","${courseDetail.courseName}")
+        var intent = AddCourseDetailActivity.newActivity(
+            this@CourseDetailActivity, true, courseDetail
+        )
+        startActivity(intent)
+
+    }
+    fun onLongClickItem(courseDetail:CourseDetail){
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Delete")
+            .setMessage("Are you sure to deleteContact?")
+            .setPositiveButton("OK") { _, _ ->
+                val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
+                val postCall = apiSingleCalls.deleteIndevidualCourse(courseDetail.id!!)
+                postCall.enqueue(object : Callback<List<CourseDetail>> {
+
+                    override fun onResponse(call: Call<List<CourseDetail>>, response: Response<List<CourseDetail>>) {
+                        if (response.isSuccessful) {
+
+                            if (response?.body() != null) {
+                                Toast.makeText(this@CourseDetailActivity, "Response Successful", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                Toast.makeText(this@CourseDetailActivity, "Response Failed", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<List<CourseDetail>>, t: Throwable) {
+                        Log.d("Error", "Network Error")
+                    }
+                })
+                Toast.makeText(applicationContext, "Successfully deleted.", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+
+            }
+            .create()
+        alertDialog.show()
+
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.menuAdd) {
             var intent = AddCourseDetailActivity.newActivity(
-                this@CourseDetailActivity, id
+                this@CourseDetailActivity, id,false
             )
             startActivity(intent)
         }

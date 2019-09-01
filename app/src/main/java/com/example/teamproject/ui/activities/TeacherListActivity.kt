@@ -94,9 +94,9 @@ class TeacherListActivity : AppCompatActivity() {
             .setPositiveButton("OK") { _, _ ->
                 val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
                 val postCall = apiSingleCalls.deleteIndevidualTrainer(trainer.id!!)
-                postCall.enqueue(object : Callback<Trainer> {
+                postCall.enqueue(object : Callback<List<Trainer>> {
 
-                    override fun onResponse(call: Call<Trainer>, response: Response<Trainer>) {
+                    override fun onResponse(call: Call<List<Trainer>>, response: Response<List<Trainer>>) {
                         if (response.isSuccessful) {
 
                             if (response?.body() != null) {
@@ -110,7 +110,7 @@ class TeacherListActivity : AppCompatActivity() {
 
                     }
 
-                    override fun onFailure(call: Call<Trainer>, t: Throwable) {
+                    override fun onFailure(call: Call<List<Trainer>>, t: Throwable) {
                         Log.d("Error", "Network Error")
                     }
                 })

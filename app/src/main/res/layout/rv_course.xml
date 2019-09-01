@@ -13,7 +13,7 @@
                 android:id="@+id/detailCourse"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/course_list_press_state"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
             <ImageView

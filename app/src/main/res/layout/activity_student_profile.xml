@@ -49,6 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/nav_header_vertical_spacing"
+                        android:fontFamily="@font/style_american"
                         android:textSize="20dp"
                         android:textColor="@color/white"
                         android:hint="@string/nav_header_title" tools:ignore="UnknownId"/>
@@ -65,16 +66,20 @@
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:tint="@color/main"
+                        android:layout_gravity="center"
                         android:src="@drawable/work"/>
                 <TextView
                         android:id="@+id/txtStdProfession"
                         android:hint="Profession"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/style_american"
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
                         android:textSize="20dp"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
             <LinearLayout
@@ -86,6 +91,7 @@
                         android:id="@+id/imgStudent3"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:tint="@color/main"
                         android:src="@drawable/address"/>
                 <TextView
@@ -94,9 +100,12 @@
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
                         android:textSize="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/style_american"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
             <LinearLayout
@@ -108,6 +117,7 @@
                         android:id="@+id/imgStudent4"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:tint="@color/main"
                         android:src="@drawable/bd"/>
                 <TextView
@@ -115,10 +125,13 @@
                         android:hint="Date of Birth"
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/style_american"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
                         android:textSize="20dp"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -132,6 +145,7 @@
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:tint="@color/main"
+                        android:layout_gravity="center"
                         android:src="@drawable/ic_phone_iphone_black_24dp"/>
                 <TextView
                         android:id="@+id/txtStdPhone"
@@ -139,9 +153,12 @@
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
                         android:textSize="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/style_american"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
             <LinearLayout
@@ -154,6 +171,7 @@
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:tint="@color/main"
+                        android:layout_gravity="center"
                         android:src="@drawable/nrc"/>
                 <TextView
                         android:id="@+id/txtStdNrc"
@@ -161,9 +179,12 @@
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
                         android:textSize="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/style_american"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
             <LinearLayout
@@ -175,17 +196,21 @@
                         android:id="@+id/imgGender"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:tint="@color/main"
                         android:src="@drawable/gender"/>
                 <TextView
                         android:id="@+id/txtStdGender"
                         android:hint="Gender"
+                        android:fontFamily="@font/style_american"
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
                         android:textSize="20dp"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
@@ -198,17 +223,21 @@
                         android:id="@+id/imgTrack"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:tint="@color/main"
                         android:src="@drawable/track"/>
                 <TextView
                         android:id="@+id/txtStdTrack"
                         android:hint="Track"
+                        android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
                         android:textSize="20dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/style_american"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
             <LinearLayout
@@ -220,6 +249,7 @@
                         android:id="@+id/imgBatch"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:tint="@color/main"
                         android:src="@drawable/batch"/>
                 <TextView
@@ -228,9 +258,12 @@
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
                         android:textSize="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/style_american"
                         android:textColor="@color/main"
                         android:background="@drawable/straight"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
             <LinearLayout
@@ -242,6 +275,7 @@
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:tint="@color/main"
+                        android:layout_gravity="center"
                         android:src="@drawable/d_email"
                         android:layout_marginLeft="0dp"/>
                 <TextView
@@ -250,16 +284,16 @@
                         android:layout_width="match_parent"
                         android:layout_marginRight="8dp"
                         android:textColor="@color/main"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
                         android:background="@drawable/straight"
+                        android:fontFamily="@font/style_american"
                         android:textSize="20dp"
-                        android:layout_height="40dp"/>
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
-
 
 
 </RelativeLayout>

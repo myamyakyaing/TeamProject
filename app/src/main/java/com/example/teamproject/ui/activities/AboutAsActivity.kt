@@ -26,7 +26,7 @@ class AboutAsActivity : AppCompatActivity() {
             startActivity(intent)
         }
         imgChrome.setOnClickListener {
-            val url = "http://10.10.21.97:8080/TalentManagementSystem"
+            val url = "http://10.10.21.67:8080/TalentManagementSystem"
             val intent = Intent(Intent.ACTION_WEB_SEARCH)
             intent.data = Uri.parse(url)
             startActivity(intent)

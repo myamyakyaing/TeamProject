@@ -3,9 +3,9 @@
     <string name="web_client_id">xxxxxxxx..place your web client id here</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Ma Mya Mya Kyaing</string>
-    <string name="nav_header_subtitle">HR Manager</string>
-    <string name="nav_header_subtitle1">myamyakyaing.mmk1996@gmail.com</string>
+    <string name="nav_header_title">Ace Plus Co.Ltd.,</string>
+    <string name="nav_header_subtitle">MICT Part, Hlaing Township</string>
+    <string name="nav_header_subtitle1">aceplus@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -15,23 +15,26 @@
     <string name="menu_tools">Logout</string>
 
     <string-array name="course_name">
-        <item>Spring</item>
+        <item>Kotlin</item>
+        <item>Activity</item>
+        <item>Firebase</item>
         <item>HTML</item>
         <item>CSS</item>
-        <item>Kotlin</item>
-        <item>Architecture</item>
-        <item>Firebase</item>
+        <item>SCSS</item>
+        <item>Spring</item>
+        <item>Hibernate</item>
+        <item>Security</item>
     </string-array>
 
     <string-array name="track_name">
         <item>Android</item>
-        <item>Java</item>
         <item>PHP</item>
+        <item>Java</item>
     </string-array>
     <string-array name="batch_no">
-        <item>Batch-1</item>
-        <item>Batch-2</item>
-        <item>Batch-3</item>
+        <item>Batch 1</item>
+        <item>Batch 2</item>
+        <item>Batch 3</item>
     </string-array>
     <string-array name="skill">
         <item>Excellent</item>

@@ -250,6 +250,7 @@
                 android:text="Save"
                 android:id="@+id/e_btn_save"
                 android:textAllCaps="false"
+                android:background="@drawable/small_button_press_state"
                 android:layout_marginRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"/>
@@ -258,6 +259,7 @@
                 android:layout_height="50dp"
                 android:text="Cancle"
                 android:textAllCaps="false"
+                android:background="@drawable/small_button_press_state"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/e_btn_cancle"/>
     </LinearLayout>

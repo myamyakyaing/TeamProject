@@ -1,7 +1,5 @@
 package com.example.teamproject.ui.activities
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,10 +7,12 @@ import android.view.MenuItem
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.teamproject.R
 import com.example.teamproject.models.Evaluation
-import com.example.teamproject.models.StuswntNameList
+import com.example.teamproject.models.StudentList
 import com.example.teamproject.network.ApiService
 import com.example.teamproject.network.RestAdapter
 import com.example.teamproject.ui.adapters.EvaluationListAdapter
@@ -23,10 +23,15 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class EvaluationListActivity : AppCompatActivity() {
-    val evList:List<Evaluation> = emptyList()
-    var myArray :Array<String> = emptyArray()
-    var list:String = ""
-    var  evaluationListAdapter: EvaluationListAdapter = EvaluationListAdapter()
+    var evList = emptyList<StudentList>()
+    var studentNameList = arrayListOf<String>()
+    private val evaluationListAdapter: EvaluationListAdapter by lazy {
+        EvaluationListAdapter(
+            this::onClickItem,
+            this::onLongClickItem
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
@@ -37,40 +42,102 @@ class EvaluationListActivity : AppCompatActivity() {
         rv_evaluation_list.layoutManager = LinearLayoutManager(this)
         rv_evaluation_list.adapter = evaluationListAdapter
         loadPosts()
-        for (i in 0..evList.size - 1) {
-            list = evList[i].student.name
-        }
-        myArray = arrayOf(list)
-        Log.d("Student Array","$myArray")
     }
+
     fun loadPosts() {
         val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
         val postCall = apiCalls.getAllEvaluation()
         postCall.enqueue(object : Callback<List<Evaluation>> {
             override fun onResponse(call: Call<List<Evaluation>>, response: Response<List<Evaluation>>) {
-
-                if (response?.body() != null){
-                    Toast.makeText(this@EvaluationListActivity,"Response Successful", Toast.LENGTH_SHORT).show()
+                if (response?.body() != null) {
                     evaluationListAdapter!!.setTeamListItems(response.body()!!)
-                }
-
-                else{
-                    Toast.makeText(this@EvaluationListActivity,"Response Failed", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@EvaluationListActivity, "Response Failed", Toast.LENGTH_SHORT).show()
                 }
 
             }
 
             override fun onFailure(call: Call<List<Evaluation>>, t: Throwable) {
                 Log.d("Error", "Network Error")
-                Log.d("EEEERRRRRROOOORRRRRRRR",t.localizedMessage)
+                Log.d("EEEERRRRRROOOORRRRRRRR", t.localizedMessage)
 
             }
         })
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
+
+    fun onClickItem(evaluation: Evaluation) {
+        val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
+        val postCall = apiCalls.updateIndevidualEvaluation(evaluation.id!!)
+        postCall.enqueue(object : Callback<Evaluation> {
+
+            override fun onResponse(call: Call<Evaluation>, response: Response<Evaluation>) {
+                if (response.isSuccessful) {
+                    val evaluationList = response?.body()
+                    val name = evaluationList!!.student!!.name
+                    val batch = evaluationList!!.batch!!.batchName
+                    val track = evaluationList!!.track!!.trackName
+                    val soft = evaluationList!!.softskill
+                    val hard = evaluationList!!.hardskill
+                    val rule = evaluationList!!.rule
+                    var intent = AddNewStudentvaluationEActivity.newActivity(
+                        this@EvaluationListActivity,true,
+                        name, batch, track, soft, hard, rule
+                    )
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@EvaluationListActivity, "Response Unsuccessful", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+            override fun onFailure(call: Call<Evaluation>, t: Throwable) {
+                Log.d("Error", "Network Error")
+            }
+        })
+    }
+
+    fun onLongClickItem(evaluation: Evaluation) {
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Delete")
+            .setMessage("Are you sure to deleteContact?")
+            .setPositiveButton("OK") { _, _ ->
+                val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
+                val postCall = apiSingleCalls.deleteIndevidualEvaluation(evaluation.id!!)
+                postCall.enqueue(object : Callback<List<Evaluation>> {
+                    override fun onResponse(call: Call<List<Evaluation>>, response: Response<List<Evaluation>>) {
+                        if (response.isSuccessful) {
+                            evaluationListAdapter!!.setTeamListItems(response.body()!!)
+                            if (response?.body() != null) {
+                                Toast.makeText(this@EvaluationListActivity, "Response Successful", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                Toast.makeText(this@EvaluationListActivity, "Response Failed", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<List<Evaluation>>, t: Throwable) {
+                        Log.d("Error", "Network Error")
+                    }
+                })
+                Toast.makeText(applicationContext, "Successfully deleted.", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+
+            }
+            .create()
+        alertDialog.show()
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -78,7 +145,27 @@ class EvaluationListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.menuAdd) {
-            val intent = AddNewStudentvaluationEActivity.newActivity(this,myArray)
+            val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
+            val postCall = apiCalls.getAllStudent()
+            postCall.enqueue(object : Callback<List<StudentList>> {
+
+                override fun onResponse(call: Call<List<StudentList>>, response: Response<List<StudentList>>) {
+                    if (response?.body() != null) {
+                        evList = response.body()!!
+                        for (data in evList) {
+                            studentNameList.add(data!!.name!!)
+                        }
+                    } else {
+                        Toast.makeText(this@EvaluationListActivity, "Response Failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                override fun onFailure(call: Call<List<StudentList>>, t: Throwable) {
+                    Log.d("Error", "Network Error")
+                    Log.d("Error", t.localizedMessage)
+
+                }
+            })
+            val intent = AddNewStudentvaluationEActivity.newActivity(this, studentNameList,false)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)

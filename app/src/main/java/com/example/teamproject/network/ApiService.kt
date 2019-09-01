@@ -15,7 +15,7 @@ interface ApiService {
     fun sendStudentData(@Body data: StudentData) : Call<StudentList>
 
     @DELETE("students/{id}")
-    fun deleteIndevidualStudent(@Path("id") id: Int): Call<StudentList>
+    fun deleteIndevidualStudent(@Path("id") id: Int): Call<List<StudentList>>
 
     @GET("trainers")
     fun getAllTrainer(): Call<List<Trainer>>
@@ -26,8 +26,8 @@ interface ApiService {
     @POST("trainers")
     fun sendTrainerData(@Body data: TrainerData): Call<Trainer>
 
-    @GET("trainers/{id}")
-    fun deleteIndevidualTrainer(@Path("id") id: Int): Call<Trainer>
+    @DELETE("trainers/{id}")
+    fun deleteIndevidualTrainer(@Path("id") id: Int): Call<List<Trainer>>
 
 
     @GET("teams")
@@ -37,10 +37,10 @@ interface ApiService {
 
     @GET("courses")
     fun getAllCourseDetail(): Call<List<CourseDetail>>
-    @GET("courses/{id}")
-    fun getIndevidualCourse(@Path("id") id: Int): Call<List<CourseDetail>>
-    @GET("courses/{id}")
-    fun deleteIndevidualCourse(@Path("id") id: Int): Call<CourseDetail>
+    @PUT("courses/{id}")
+    fun updateIndevidualCourse(@Body data: CourseDetailData): Call<CourseDetail>
+    @DELETE("courses/{id}")
+    fun deleteIndevidualCourse(@Path("id") id: Int): Call<List<CourseDetail>>
     @POST("courses")
     fun sendCourseData(@Body data: CourseData): Call<CourseDetail>
 
@@ -49,7 +49,11 @@ interface ApiService {
 
     @GET("evaluations")
     fun getAllEvaluation(): Call<List<Evaluation>>
-
     @POST("evaluations")
     fun sendEvaluationData(@Body data: EvaluationData): Call<Evaluation>
+    @DELETE("evaluations/{id}")
+    fun deleteIndevidualEvaluation(@Path("id") id: Int): Call<List<Evaluation>>
+    @PUT("evaluations/{id}")
+    fun updateIndevidualEvaluation(@Path("id") id: Int): Call<Evaluation>
+
 }

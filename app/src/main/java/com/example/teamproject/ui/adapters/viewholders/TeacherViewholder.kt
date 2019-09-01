@@ -4,7 +4,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teamproject.models.Trainer
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.rv_student.view.*
 import kotlinx.android.synthetic.main.rv_teacher.view.*
 
 class TeacherViewholder(
@@ -18,9 +17,9 @@ class TeacherViewholder(
             txtTeacherPos.text = trainer.track!!.trackName
         }
         view.setOnClickListener { onClick(trainer) }
-            view.setOnLongClickListener {
-                onLongClick(trainer)
-                true
-            }
+        view.setOnLongClickListener {
+            onLongClick(trainer)
+            true
+        }
     }
 }

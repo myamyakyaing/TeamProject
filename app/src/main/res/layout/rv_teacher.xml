@@ -38,6 +38,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
+                android:fontFamily="@font/style_american"
                 app:layout_constraintBottom_toTopOf="@+id/txtTeacherPos"
                 android:textSize="15dp"
                 android:textColor="#FFFF"/>
@@ -47,6 +48,7 @@
                 android:textSize="12dp"
                 android:layout_height="wrap_content"
                 android:text="Android"
+                android:fontFamily="@font/style_american"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintBottom_toBottomOf="@+id/imgRvTeacher"
                 app:layout_constraintStart_toStartOf="parent"

@@ -20,12 +20,8 @@ class LoginActivity : AppCompatActivity() {
         private val TAG = "LoginActivity"
         private val REQUEST_SIGNUP = 0
     }
-    val aceEmail = "ace@gmail.com"
-    val acePass = "acepluscompany"
-    val dataSystemEmail = "data@gmail.com"
-    val dataSystemPass = "acedatasystem"
-    val datEmail = "dat@gmail.com"
-    val datPass = "datcompany"
+    val aceEmail = "aceplus@gmail.com"
+    val acePass = "@@ceplu$$"
     private lateinit var email: String
     private lateinit var password: String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,29 +46,15 @@ class LoginActivity : AppCompatActivity() {
         else if (password.isEmpty() || password.length < 8 || password.length > 16) {
             editTextPassword.error = "Between 8 and 16 alphanumeric characters"
         }
-        else if (email == aceEmail && password == acePass){
-            startActivity(Intent(this, MainActivity::class.java))
-            var intent = MainActivity.newActivity(
-                this@LoginActivity,aceEmail)
+        else if (email == aceEmail && password == acePass) {
+            var intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             editTextEmail.text!!.clear()
             editTextPassword.text!!.clear()
+            finish()
         }
-        else if (email == dataSystemEmail && password == dataSystemPass){
-            startActivity(Intent(this, MainActivity::class.java))
-            var intent = MainActivity.newActivity(
-                this@LoginActivity,dataSystemEmail)
-            startActivity(intent)
-            editTextEmail.text!!.clear()
-            editTextPassword.text!!.clear()
-        }
-        else if (email == datEmail && password == datPass){
-            startActivity(Intent(this, MainActivity::class.java))
-            var intent = MainActivity.newActivity(
-                this@LoginActivity, datEmail )
-            startActivity(intent)
-            editTextEmail.text!!.clear()
-            editTextPassword.text!!.clear()
+        else{
+            Toast.makeText(this@LoginActivity,"failed",Toast.LENGTH_SHORT).show()
         }
 
     }

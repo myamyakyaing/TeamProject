@@ -29,7 +29,7 @@
         <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:srcCompat="@drawable/tza"
+                app:srcCompat="@drawable/aceplus"
                 android:id="@+id/imgMainProfile"/>
     </androidx.cardview.widget.CardView>
 
@@ -38,6 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:textColor="@color/main"
+            android:fontFamily="@font/style_american"
             android:text="@string/nav_header_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -45,11 +47,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nav_header_subtitle"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/main"
+            android:fontFamily="@font/style_american"
             android:id="@+id/txtMainPosition"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/main"
+            android:fontFamily="@font/style_american"
             android:text="@string/nav_header_subtitle1"
             android:id="@+id/txtMainEmail"/>
 

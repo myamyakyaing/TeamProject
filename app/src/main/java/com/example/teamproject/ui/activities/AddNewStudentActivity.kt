@@ -122,9 +122,7 @@ class AddNewStudentActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
             val fullPhotoUri: Uri = data!!.data!!
             Glide.with(this).load(fullPhotoUri).into(add_imgStudent)
-            Toast.makeText(this@AddNewStudentActivity, "Uri is :$fullPhotoUri", Toast.LENGTH_SHORT).show()
-            val fileName = "$fullPhotoUri"
-            val path = "${Environment.getExternalStorageDirectory()}/$fileName"
+            val path = "${Environment.getExternalStorageDirectory()}/$fullPhotoUri"
 
             add_imgStudent.buildDrawingCache()
             var bm:Bitmap = add_imgStudent.getDrawingCache()

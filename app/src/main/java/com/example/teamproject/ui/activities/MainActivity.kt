@@ -61,12 +61,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, SectionActivity::class.java)
                 startActivity(intent)
                 return@OnNavigationItemSelectedListener false
-               // finish()
+                finish()
             }
             R.id.navigation_notifications -> {
                 val intent = Intent(this, AdminUserListActivity::class.java)
                 startActivity(intent)
                 return@OnNavigationItemSelectedListener false
+                finish()
             }
         }
         false
@@ -99,15 +100,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     private fun populateList(): ArrayList<ImageModel> {
-
         val list = ArrayList<ImageModel>()
-
-        for (i in 0..6) {
+        for (i in 0..5) {
             val imageModel = ImageModel()
             imageModel.setImage_drawables(myImageList[i])
             list.add(imageModel)
         }
-
         return list
     }
 
@@ -133,7 +131,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (currentPage == NUM_PAGES) {
                 currentPage = 0
             }
-//            mPager!!.setCurrentItem(currentPage++, true)
+            mPager!!.setCurrentItem(currentPage++, true)
         }
         val swipeTimer = Timer()
         swipeTimer.schedule(object : TimerTask() {
