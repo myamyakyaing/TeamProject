@@ -31,6 +31,7 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
     var studentNameList = arrayListOf<String>()
     var studentBatchList = arrayListOf<String>()
     var studentTrackList = arrayListOf<String>()
+    var studentNameArray = emptyArray<String>()
 
     private var isEdit = false
     var trackId: Int = 0
@@ -53,36 +54,7 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
         checkIsSpinnerForAll()
 
         e_btn_save.setOnClickListener {
-            val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
-            val loginCall = apiCalls.sendEvaluationData(
-                EvaluationData(
-                    batchId,
-                    hard_skill,
-                    rule,
-                    soft_skill,
-                    nameId,
-                    trackId
-
-                )
-            )
-            loginCall.enqueue(object : Callback<Evaluation> {
-                override fun onFailure(call: Call<Evaluation>, t: Throwable) {
-                    Toast.makeText(this@AddNewStudentvaluationEActivity, "Response Failed", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onResponse(call: Call<Evaluation>, response: Response<Evaluation>) {
-                    //Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@AddNewStudentvaluationEActivity, "Response Successful", Toast.LENGTH_SHORT)
-                            .show()
-                        var intent = Intent(this@AddNewStudentvaluationEActivity, EvaluationListActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this@AddNewStudentvaluationEActivity, "Add Failed", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            })
+            sendEvaluation()
         }
 
         //click cancle button
@@ -118,6 +90,38 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
         })
 
     }
+    fun sendEvaluation(){
+        val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
+        val loginCall = apiCalls.sendEvaluationData(
+            EvaluationData(
+                batchId,
+                hard_skill,
+                rule,
+                soft_skill,
+                nameId,
+                trackId
+
+            )
+        )
+        loginCall.enqueue(object : Callback<Evaluation> {
+            override fun onFailure(call: Call<Evaluation>, t: Throwable) {
+                Toast.makeText(this@AddNewStudentvaluationEActivity, "Response Failed", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Evaluation>, response: Response<Evaluation>) {
+                //Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
+                if (response.isSuccessful) {
+                    Toast.makeText(this@AddNewStudentvaluationEActivity, "Response Successful", Toast.LENGTH_SHORT)
+                        .show()
+                    var intent = Intent(this@AddNewStudentvaluationEActivity, EvaluationListActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@AddNewStudentvaluationEActivity, "Add Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+    }
 
     private fun checkIsSpinnerForAll() {
         //student array spinner
@@ -135,6 +139,7 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
         }
         //track spinner
         var trackArray = resources.getStringArray(R.array.track_name)
+        Log.d("Track Array","$trackArray")
         var trackArrayAdapter: allSpinnerAdapter = allSpinnerAdapter(this, trackArray, R.layout.text_spinner)
         e_track_spinner.adapter = trackArrayAdapter
 

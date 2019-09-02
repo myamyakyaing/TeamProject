@@ -82,18 +82,10 @@ class AddCourseDetailActivity : AppCompatActivity() {
             val course = intent.extras!!.getSerializable("COURSE_DETAIL") as CourseDetail
             val courseId = course.id
             val courseName = course.courseName
-            text_view_date.text = (course.startDate).toString()
-            text_view_date_3.setText(course.endDate)
-            if (course.batch!!.id == 1) {
-                c_batch_spinner.setSelection(0)
-            } else if (course.batch!!.id == 2) {
-                c_batch_spinner.setSelection(1)
-            } else {
-                c_batch_spinner.setSelection(2)
-            }
             val day = course.teachingDay
             editTextName.setText(courseName)
             edt_teaching_day.setText(day)
+
             course_btn_save.text = "Update"
         }
         //newActivity
