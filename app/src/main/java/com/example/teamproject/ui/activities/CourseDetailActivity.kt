@@ -31,6 +31,7 @@ class CourseDetailActivity : AppCompatActivity() {
     var id :Int = 0
     private val courseDetailListAdapter: CourseDetailListAdapter by lazy { CourseDetailListAdapter(this::onClickItem, this::onLongClickItem) }
     companion object {
+        var course_detail_list = emptyList<CourseDetail>()
         var trackId:Int = 0
         val COURSE_LIST = "course_list"
         fun newActivity(
@@ -56,11 +57,14 @@ class CourseDetailActivity : AppCompatActivity() {
         loadCourses()
     }
 
+//    override fun onResume() {
+//        super.onResume()
+//        courseDetailListAdapter.setCourseDetailListItems(course_detail_list)
+//    }
     fun loadCourses() {
         val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
         val postCall = apiCalls.getAllCourseDetail()
         postCall.enqueue(object : Callback<List<CourseDetail>> {
-
             override fun onResponse(call: Call<List<CourseDetail>>, response: Response<List<CourseDetail>>) {
                 if (response?.body() != null) {
                     Toast.makeText(this@CourseDetailActivity, "Response Successful", Toast.LENGTH_SHORT).show()
@@ -101,10 +105,10 @@ class CourseDetailActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<List<CourseDetail>>, response: Response<List<CourseDetail>>) {
                         if (response.isSuccessful) {
-
                             if (response?.body() != null) {
-                                Toast.makeText(this@CourseDetailActivity, "Response Successful", Toast.LENGTH_SHORT)
-                                    .show()
+                                course_detail_list = response.body()!!
+                                courseDetailListAdapter.setCourseDetailListItems(response.body()!!)
+
                             } else {
                                 Toast.makeText(this@CourseDetailActivity, "Response Failed", Toast.LENGTH_SHORT).show()
                             }

@@ -23,6 +23,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class TeacherListActivity : AppCompatActivity() {
+
+    companion object {
+        var trainer_list = emptyList<Trainer>()
+    }
     private val trainerListAdapter: RecyclerTeacherAdapter by lazy {
         RecyclerTeacherAdapter(
             this::onClickItem,
@@ -41,6 +45,11 @@ class TeacherListActivity : AppCompatActivity() {
         rvTeacher.adapter = trainerListAdapter
         loadPosts()
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        trainerListAdapter.setTrainerListItems(trainer_list)
+//    }
 
     private fun onClickItem(trainer: Trainer) {
         val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
@@ -95,13 +104,11 @@ class TeacherListActivity : AppCompatActivity() {
                 val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
                 val postCall = apiSingleCalls.deleteIndevidualTrainer(trainer.id!!)
                 postCall.enqueue(object : Callback<List<Trainer>> {
-
                     override fun onResponse(call: Call<List<Trainer>>, response: Response<List<Trainer>>) {
                         if (response.isSuccessful) {
-
                             if (response?.body() != null) {
-                                Toast.makeText(this@TeacherListActivity, "Response Successful", Toast.LENGTH_SHORT)
-                                    .show()
+                                trainer_list = response.body()!!
+                                trainerListAdapter.setTrainerListItems(response.body()!!)
                             } else {
                                 Toast.makeText(this@TeacherListActivity, "Response Failed", Toast.LENGTH_SHORT).show()
                             }
@@ -123,12 +130,6 @@ class TeacherListActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -140,5 +141,10 @@ class TeacherListActivity : AppCompatActivity() {
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

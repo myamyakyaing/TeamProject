@@ -47,7 +47,6 @@ class CourseActivity : AppCompatActivity() {
             this@CourseActivity, course.id
         )
         startActivity(intent)
-        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {

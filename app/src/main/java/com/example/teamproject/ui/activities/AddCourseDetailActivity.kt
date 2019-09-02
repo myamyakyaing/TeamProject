@@ -20,9 +20,7 @@ import com.example.teamproject.network.ApiService
 import com.example.teamproject.network.RestAdapter
 import com.example.teamproject.ui.adapters.allSpinnerAdapter
 import kotlinx.android.synthetic.main.activity_add_course_detail.*
-import kotlinx.android.synthetic.main.activity_add_new_student.*
 import kotlinx.android.synthetic.main.add_course_bar.*
-import kotlinx.android.synthetic.main.recycler_course_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,7 +61,7 @@ class AddCourseDetailActivity : AppCompatActivity() {
         ): Intent {
             val intent = Intent(context, AddCourseDetailActivity::class.java)
             intent.putExtra(IE_IS_EDIT, isEdit)
-           intent.putExtra("COURSE_DETAIL",courseDetail)
+            intent.putExtra("COURSE_DETAIL", courseDetail)
             return intent
 
         }
@@ -84,15 +82,13 @@ class AddCourseDetailActivity : AppCompatActivity() {
             val course = intent.extras!!.getSerializable("COURSE_DETAIL") as CourseDetail
             val courseId = course.id
             val courseName = course.courseName
-            text_view_date.text = ( course.startDate).toString()
-            text_view_date_3.setText( course.endDate)
-            if (course.batch!!.id == 1){
+            text_view_date.text = (course.startDate).toString()
+            text_view_date_3.setText(course.endDate)
+            if (course.batch!!.id == 1) {
                 c_batch_spinner.setSelection(0)
-            }
-            else if (course.batch!!.id == 2){
+            } else if (course.batch!!.id == 2) {
                 c_batch_spinner.setSelection(1)
-            }
-            else {
+            } else {
                 c_batch_spinner.setSelection(2)
             }
             val day = course.teachingDay

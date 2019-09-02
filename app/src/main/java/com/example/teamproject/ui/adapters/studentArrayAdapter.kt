@@ -1,4 +1,4 @@
-package com.example.teamproject.ui.adapters.viewholders
+package com.example.teamproject.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

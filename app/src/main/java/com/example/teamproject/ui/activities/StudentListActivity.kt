@@ -1,7 +1,6 @@
 package com.example.teamproject.ui.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -12,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.teamproject.models.Student
 import com.example.teamproject.models.StudentList
 import com.example.teamproject.network.ApiService
 import com.example.teamproject.network.RestAdapter
@@ -26,6 +24,11 @@ import retrofit2.Response
 //import android.R
 
 class StudentListActivity : AppCompatActivity() {
+
+    companion object {
+        var student_list = emptyList<StudentList>()
+    }
+
     private val studentListAdapter: StudentListAdapter by lazy {
         StudentListAdapter(
             this::onClickItem,
@@ -44,6 +47,11 @@ class StudentListActivity : AppCompatActivity() {
         recycler_student_list.adapter = studentListAdapter
         loadPosts()
     }
+//    override fun onResume() {
+//        super.onResume()
+//        studentListAdapter.setStudentListItems(student_list)
+//    }
+
 
     private fun onClickItem(studentList: StudentList) {
         val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
@@ -101,7 +109,8 @@ class StudentListActivity : AppCompatActivity() {
                 val postCall = apiSingleCalls.deleteIndevidualStudent(studentList.id!!)
                 postCall.enqueue(object : Callback<List<StudentList>> {
                     override fun onResponse(call: Call<List<StudentList>>, response: Response<List<StudentList>>) {
-                            studentListAdapter.setStudentListItems(response.body()!!)
+                        student_list = response.body()!!
+                        studentListAdapter.setStudentListItems(response.body()!!)
                     }
 
                     override fun onFailure(call: Call<List<StudentList>>, t: Throwable) {
@@ -117,11 +126,6 @@ class StudentListActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(com.example.teamproject.R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -133,5 +137,10 @@ class StudentListActivity : AppCompatActivity() {
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

@@ -4,6 +4,7 @@ package com.example.teamproject.ui.activities
 //import com.example.teamproject.ui.adapters.trackSpinnerAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -13,18 +14,24 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.teamproject.R
 import com.example.teamproject.models.Evaluation
 import com.example.teamproject.models.EvaluationData
+import com.example.teamproject.models.StudentList
 import com.example.teamproject.network.ApiService
 import com.example.teamproject.network.RestAdapter
 import com.example.teamproject.ui.adapters.allSpinnerAdapter
-import com.example.teamproject.ui.adapters.viewholders.studentArrayAdapter
+import com.example.teamproject.ui.adapters.studentArrayAdapter
 import kotlinx.android.synthetic.main.activity_add_new_studentvaluation_e.*
 import kotlinx.android.synthetic.main.add_evaluation_bar.*
-import kotlinx.android.synthetic.main.recycler_evaluation_list.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class AddNewStudentvaluationEActivity : AppCompatActivity() {
+
+    var evList = emptyList<StudentList>()
+    var studentNameList = arrayListOf<String>()
+    var studentBatchList = arrayListOf<String>()
+    var studentTrackList = arrayListOf<String>()
+
     private var isEdit = false
     var trackId: Int = 0
     var batchId: Int = 0
@@ -32,45 +39,8 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
     var soft_skill = ""
     var hard_skill = ""
     var rule = ""
-
-    companion object {
-        var IE_IS_EDIT = "isEdit"
-        val NAME = "name"
-        val BATCH = "batch"
-        val TRACK = "track"
-        val SOFT = "soft"
-        val HARD = "hard"
-        val RULE = "rule"
-        val EVALUATION_LIST = "course_list"
-        lateinit var studentArray: ArrayList<String>
-        fun newActivity(context: EvaluationListActivity, studentName: ArrayList<String>, isEdit: Boolean): Intent {
-            val intent = Intent(context, AddNewStudentvaluationEActivity::class.java)
-            intent.putExtra(EVALUATION_LIST, studentName)
-            intent.putExtra(IE_IS_EDIT,isEdit)
-            return intent
-        }
-
-        fun newActivity(
-            context: EvaluationListActivity,
-            isEdit: Boolean,
-            name: String? = null,
-            batch: String? = null,
-            track: String? = null,
-            soft: String? = null,
-            hard: String? = null,
-            rule: String? = null
-        ): Intent {
-            val intent = Intent(context, AddNewStudentvaluationEActivity::class.java)
-            intent.putExtra(IE_IS_EDIT,isEdit)
-            intent.putExtra(NAME, name)
-            intent.putExtra(BATCH, batch)
-            intent.putExtra(TRACK, track)
-            intent.putExtra(SOFT, soft)
-            intent.putExtra(HARD, hard)
-            intent.putExtra(RULE, rule)
-            return intent
-        }
-    }
+    var batch = ""
+    var track = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -79,23 +49,9 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_new_studentvaluation_e)
         setSupportActionBar(evaluation_bar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        studentArray = intent.getStringArrayListExtra(EVALUATION_LIST)
-        //get data from intent
-        if (intent.getBooleanExtra(IE_IS_EDIT, false)) {
-            isEdit = true
-            txt_ev_name.text = intent.getStringExtra(NAME)
-            txt_ev_track.text = intent.getStringExtra(TRACK)
-            txt_ev_batch.text = intent.getStringExtra(BATCH)
-            txt_ev_soft.text = intent.getStringExtra(SOFT)
-            txt_ev_hard.text = intent.getStringExtra(HARD)
-            txt_ev_rule.text = intent.getStringExtra(RULE)
-            e_btn_save.text = "Update"
-        }
+        loadEvaluation()
         checkIsSpinnerForAll()
-        e_btn_cancle.setOnClickListener {
-            onBackPressed()
-            true
-        }
+
         e_btn_save.setOnClickListener {
             val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
             val loginCall = apiCalls.sendEvaluationData(
@@ -129,9 +85,54 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
             })
         }
 
+        //click cancle button
+        e_btn_cancle.setOnClickListener {
+            onBackPressed()
+            true
+        }
+
+    }
+
+    fun loadEvaluation() {
+        val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
+        val postCall = apiCalls.getAllStudent()
+        postCall.enqueue(object : Callback<List<StudentList>> {
+
+            override fun onResponse(call: Call<List<StudentList>>, response: Response<List<StudentList>>) {
+                if (response?.body() != null) {
+                    evList = response.body()!!
+                    for (data in evList) {
+                        studentNameList.add(data!!.name!!)
+                    }
+
+                } else {
+                    Toast.makeText(this@AddNewStudentvaluationEActivity, "Response Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<StudentList>>, t: Throwable) {
+                Log.d("Error", "Network Error")
+                Log.d("Error", t.localizedMessage)
+
+            }
+        })
+
     }
 
     private fun checkIsSpinnerForAll() {
+        //student array spinner
+        var studentArrayAdapter: studentArrayAdapter = studentArrayAdapter(this, studentNameList, R.layout.text_spinner)
+        e_std_spinner.adapter = studentArrayAdapter
+
+        e_std_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                Toast.makeText(this@AddNewStudentvaluationEActivity, "Ok", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                nameId = p2 + 1
+            }
+        }
         //track spinner
         var trackArray = resources.getStringArray(R.array.track_name)
         var trackArrayAdapter: allSpinnerAdapter = allSpinnerAdapter(this, trackArray, R.layout.text_spinner)
@@ -145,20 +146,6 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 trackId = p2 + 1
 
-            }
-
-        }
-        //student array spinner
-        var studentArrayAdapter: studentArrayAdapter = studentArrayAdapter(this, studentArray, R.layout.text_spinner)
-        e_std_spinner.adapter = studentArrayAdapter
-
-        e_std_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                Toast.makeText(this@AddNewStudentvaluationEActivity, "Ok", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                nameId = p2 + 1
             }
 
         }
@@ -177,8 +164,8 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
             }
 
         }
+        //soft spinner
         var skillArray = resources.getStringArray(R.array.skill)
-        //bath spinner
         var softArrayAdapter: allSpinnerAdapter = allSpinnerAdapter(this, skillArray, R.layout.text_spinner)
         e_soft_spinner.adapter = softArrayAdapter
 

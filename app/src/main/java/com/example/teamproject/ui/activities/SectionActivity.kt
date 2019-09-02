@@ -44,7 +44,6 @@ class SectionActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
-
         return true
     }
 }
