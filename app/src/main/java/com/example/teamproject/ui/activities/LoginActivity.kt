@@ -49,9 +49,9 @@ class LoginActivity : AppCompatActivity() {
         else if (email == aceEmail && password == acePass) {
             var intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
             editTextEmail.text!!.clear()
             editTextPassword.text!!.clear()
-            finish()
         }
         else{
             Toast.makeText(this@LoginActivity,"failed",Toast.LENGTH_SHORT).show()

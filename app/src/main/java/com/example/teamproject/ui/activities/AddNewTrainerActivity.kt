@@ -60,42 +60,8 @@ class AddNewTrainerActivity : AppCompatActivity() {
             checkEditTextIsEmpty()
             radio_button_click()
             date = dob.toString()
-            val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
-            val loginCall = apiCalls.sendTrainerData(
-                TrainerData(
-                    edt_add_techAddress.text.toString(),
-                    batchId,
-                    date,
-                    edt_add_techEmail.text.toString(),
-                    gender,
-                    edt_add_techName.text.toString(),
-                    edt_add_techNrc.text.toString(),
-                    edt_add_techPhone.text.toString(),
-                    edt_add_techPosition.text.toString(),
-                    trackId,
-                    edt_add_techCompany.text.toString(),
-                    image,
-                    courseId
-                )
-            )
-            loginCall.enqueue(object : Callback<Trainer> {
-                override fun onFailure(call: Call<Trainer>, t: Throwable) {
-                    Toast.makeText(this@AddNewTrainerActivity, "Response Failed", Toast.LENGTH_SHORT).show()
-                    Log.d("ADD TRAINER ERROR",t.localizedMessage)
-                }
-
-                override fun onResponse(call: Call<Trainer>, response: Response<Trainer>) {
-                    //Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@AddNewTrainerActivity, "Response Successful", Toast.LENGTH_SHORT).show()
-                        var intent = Intent(this@AddNewTrainerActivity, TeacherListActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this@AddNewTrainerActivity, "Add Failed", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            })
+            addNewTrainer()
+            clearEditText()
         }
     }
 
@@ -161,7 +127,6 @@ class AddNewTrainerActivity : AppCompatActivity() {
             edt_add_techCompany.error = "Required Student Facebook Link"
         }
     }
-
     private fun checkISDatePickerForDob() {
         // get the references from layout file
         textview_date = this.text_view_date_2
@@ -250,6 +215,61 @@ class AddNewTrainerActivity : AppCompatActivity() {
             }
 
         }
+
+    }
+    private fun addNewTrainer(){
+        val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
+        val loginCall = apiCalls.sendTrainerData(
+            TrainerData(
+                edt_add_techAddress.text.toString(),
+                batchId,
+                date,
+                edt_add_techEmail.text.toString(),
+                gender,
+                edt_add_techName.text.toString(),
+                edt_add_techNrc.text.toString(),
+                edt_add_techPhone.text.toString(),
+                edt_add_techPosition.text.toString(),
+                trackId,
+                edt_add_techCompany.text.toString(),
+                image,
+                courseId
+            )
+        )
+        loginCall.enqueue(object : Callback<Trainer> {
+            override fun onFailure(call: Call<Trainer>, t: Throwable) {
+                Toast.makeText(this@AddNewTrainerActivity, "Response Failed", Toast.LENGTH_SHORT).show()
+                Log.d("ADD TRAINER ERROR",t.localizedMessage)
+            }
+
+            override fun onResponse(call: Call<Trainer>, response: Response<Trainer>) {
+                //Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
+                if (response.isSuccessful) {
+                    Toast.makeText(this@AddNewTrainerActivity, "Response Successful", Toast.LENGTH_SHORT).show()
+                    var intent = Intent(this@AddNewTrainerActivity, TeacherListActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@AddNewTrainerActivity, "Add Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+    }
+    private fun clearEditText(){
+
+        edt_add_techName.text.clear()
+
+        edt_add_techPosition.text.clear()
+
+        edt_add_techNrc.text.clear()
+
+        edt_add_techPhone.text.clear()
+
+        edt_add_techEmail.text.clear()
+
+        edt_add_techAddress.text.clear()
+
+        edt_add_techCompany.text.clear()
 
     }
 

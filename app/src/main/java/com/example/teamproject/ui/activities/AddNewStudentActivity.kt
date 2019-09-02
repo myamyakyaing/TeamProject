@@ -28,6 +28,7 @@ import com.example.teamproject.ui.adapters.allSpinnerAdapter
 //import com.example.teamproject.ui.adapters.batchSpinnerAdapter
 //import com.example.teamproject.ui.adapters.trackSpinnerAdapter
 import kotlinx.android.synthetic.main.activity_add_new_student.*
+import kotlinx.android.synthetic.main.activity_add_new_student.view.*
 import kotlinx.android.synthetic.main.activity_add_new_trainer.*
 import kotlinx.android.synthetic.main.new_student_bar.*
 import okhttp3.MediaType
@@ -71,41 +72,9 @@ class AddNewStudentActivity : AppCompatActivity() {
             checkEditTextIsEmpty()
             radio_button_click()
             date = dob.toString()
-            val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
-            val loginCall = apiCalls.sendStudentData(
-                StudentData(
-                    image,
-                    edt_add_stdAddress.text.toString(),
-                    batchId,
-                    date ,
-                    edt_add_stdEmail.text.toString(),
-                    gender,
-                    edt_add_stdName.text.toString(),
-                    edt_add_stdNrc.text.toString(),
-                    edt_add_stdPhone.text.toString(),
-                    edt_add_stdQualification.text.toString(),
-                    trackId,
-                    edt_facebookStd.text.toString()
-                )
-          )
-            loginCall.enqueue(object : Callback<StudentList> {
-                override fun onFailure(call: Call<StudentList>, t: Throwable) {
-                   Log.d("Errrrrrrrr Message:",t.localizedMessage)
-                    Toast.makeText(this@AddNewStudentActivity, "Network Failed", Toast.LENGTH_SHORT).show()
-                }
+            addNewStudent()
+            clearEditText()
 
-                override fun onResponse(call: Call<StudentList>, response: Response<StudentList>) {
-                    Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
-                    if (response.isSuccessful) {
-                        Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
-                        var intent = Intent(this@AddNewStudentActivity, StudentListActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this@AddNewStudentActivity, "Add Failed", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            })
         }
     }
     private fun checkUploadImage(){
@@ -162,7 +131,6 @@ class AddNewStudentActivity : AppCompatActivity() {
             edt_facebookStd.error = "Required Student Facebook Link"
         }
     }
-
     private fun checkISDatePickerForDob() {
         // get the references from layout file
         button_date = this.button_date_1
@@ -237,6 +205,61 @@ class AddNewStudentActivity : AppCompatActivity() {
         }
 
     }
+    private fun addNewStudent(){
+        val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
+        val loginCall = apiCalls.sendStudentData(
+            StudentData(
+                image,
+                edt_add_stdAddress.text.toString(),
+                batchId,
+                date ,
+                edt_add_stdEmail.text.toString(),
+                gender,
+                edt_add_stdName.text.toString(),
+                edt_add_stdNrc.text.toString(),
+                edt_add_stdPhone.text.toString(),
+                edt_add_stdQualification.text.toString(),
+                trackId,
+                edt_facebookStd.text.toString()
+            )
+        )
+        loginCall.enqueue(object : Callback<StudentList> {
+            override fun onFailure(call: Call<StudentList>, t: Throwable) {
+                Log.d("Errrrrrrrr Message:",t.localizedMessage)
+                Toast.makeText(this@AddNewStudentActivity, "Network Failed", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<StudentList>, response: Response<StudentList>) {
+                Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
+                if (response.isSuccessful) {
+                    Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
+                    var intent = Intent(this@AddNewStudentActivity, StudentListActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this@AddNewStudentActivity, "Add Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+    }
+    private fun clearEditText(){
+
+            edt_add_stdName.text.clear()
+
+            edt_add_stdQualification.text.clear()
+
+            edt_add_stdNrc.text.clear()
+
+            edt_add_stdPhone.text.clear()
+
+            edt_add_stdEmail.text.clear()
+
+            edt_add_stdAddress.text.clear()
+
+            edt_facebookStd.text.clear()
+
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
