@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.FileUtils
+import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -34,6 +35,7 @@ import kotlinx.android.synthetic.main.new_student_bar.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,16 +93,18 @@ class AddNewStudentActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
             val fullPhotoUri: Uri = data!!.data!!
             Glide.with(this).load(fullPhotoUri).into(add_imgStudent)
-            val path = "${Environment.getExternalStorageDirectory()}/$fullPhotoUri"
-
-            add_imgStudent.buildDrawingCache()
-            var bm:Bitmap = add_imgStudent.getDrawingCache()
-            var  baos:ByteArrayOutputStream =  ByteArrayOutputStream()
-            bm.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-            var b = baos.toByteArray()
-            image = Base64.encodeToString(b, Base64.NO_WRAP)
-            Log.d("EEEERRRRRROOOOORRR","$image")
+            val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fullPhotoUri)
+            add_imgStudent.setImageBitmap(bitmap)
+            val imgStudent = add_imgStudent.getDrawable()
+            var encodedImageData = getEncoded64ImageStringFromBitmap(bitmap)
         }
+    }
+    fun getEncoded64ImageStringFromBitmap(bitmap: Bitmap): String {
+        val stream: ByteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream!!)
+        val byteFormat = stream.toByteArray()
+        image = Base64.encodeToString(byteFormat, Base64.NO_WRAP)
+        return image
     }
     fun radio_button_click() {
         // Get the checked radio button id from radio group
@@ -223,18 +227,16 @@ class AddNewStudentActivity : AppCompatActivity() {
                 edt_facebookStd.text.toString()
             )
         )
-        loginCall.enqueue(object : Callback<StudentList> {
-            override fun onFailure(call: Call<StudentList>, t: Throwable) {
+        loginCall.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.d("Errrrrrrrr Message:",t.localizedMessage)
                 Toast.makeText(this@AddNewStudentActivity, "Network Failed", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<StudentList>, response: Response<StudentList>) {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
                 if (response.isSuccessful) {
-                    Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this@AddNewStudentActivity, StudentListActivity::class.java)
-                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(this@AddNewStudentActivity, "Add Failed", Toast.LENGTH_SHORT).show()
                 }

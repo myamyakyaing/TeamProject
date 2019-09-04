@@ -1,40 +1,40 @@
 package com.example.teamproject.ui.activities
 
+//import com.example.teamproject.ui.adapters.batchSpinnerAdapter
+//import com.example.teamproject.ui.adapters.trackSpinnerAdapter
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
+import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
+import android.util.Log.i
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.teamproject.R
-import com.example.teamproject.models.Trainer
 import com.example.teamproject.models.TrainerData
 import com.example.teamproject.network.ApiService
 import com.example.teamproject.network.RestAdapter
 import com.example.teamproject.ui.adapters.allSpinnerAdapter
-//import com.example.teamproject.ui.adapters.batchSpinnerAdapter
-//import com.example.teamproject.ui.adapters.trackSpinnerAdapter
 import kotlinx.android.synthetic.main.activity_add_new_trainer.*
 import kotlinx.android.synthetic.main.new_teacher_bar.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddNewTrainerActivity : AppCompatActivity() {
     val REQUEST_IMAGE_GET = 1
-    lateinit var dob:CharSequence
+    lateinit var dob: CharSequence
     var date = ""
     var button_date: ImageButton? = null
     var textview_date: TextView? = null
@@ -65,7 +65,7 @@ class AddNewTrainerActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkUploadImage(){
+    private fun checkUploadImage() {
         add_imgTrainer.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
@@ -74,42 +74,40 @@ class AddNewTrainerActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
             val fullPhotoUri: Uri = data!!.data!!
             Glide.with(this).load(fullPhotoUri).into(add_imgTrainer)
-            Toast.makeText(this@AddNewTrainerActivity, "$fullPhotoUri", Toast.LENGTH_SHORT).show()
-            val fileName = "$fullPhotoUri"
-            val path = "${Environment.getExternalStorageDirectory()}/$fileName"
-           add_imgTrainer.buildDrawingCache()
-            val bitmap:Bitmap = add_imgTrainer.getDrawingCache()
-            var encodedImageData= getEncoded64ImageStringFromBitmap(bitmap)
-            Log.d("Image Byte","$encodedImageData")
+            val bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fullPhotoUri)
+            add_imgTrainer.setImageBitmap(bitmap)
+            val imgTrianer = add_imgTrainer.getDrawable()
+            var encodedImageData = getEncoded64ImageStringFromBitmap(bitmap)
         }
     }
-    fun getEncoded64ImageStringFromBitmap(bitmap:Bitmap):String{
-        val stream:ByteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream)
+
+    fun getEncoded64ImageStringFromBitmap(bitmap: Bitmap): String {
+        val stream: ByteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream!!)
         val byteFormat = stream.toByteArray()
-        image =Base64.encodeToString(byteFormat,Base64.NO_WRAP)
+        image = Base64.encodeToString(byteFormat, Base64.NO_WRAP)
         return image
     }
+
     fun radio_button_click() {
         // Get the checked radio button id from radio group
         var id: Int = trainer_group.checkedRadioButtonId
         if (id != -1) { // If any radio button checked from radio group
             // Get the instance of radio button using id
             val radio: RadioButton = findViewById(id)
-            Toast.makeText(applicationContext, "On button click : ${radio.text}", Toast.LENGTH_SHORT).show()
             gender = "${radio.text}"
             Toast.makeText(applicationContext, gender, Toast.LENGTH_SHORT).show()
         } else {
             trainer_group.isClickable = false
-            // If no radio button checked in this radio group
-            Toast.makeText(applicationContext, "On button click : nothing selected", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun checkEditTextIsEmpty() {
         if (edt_add_techName.text.isEmpty()) {
             edt_add_techName.error = "Required Student Name"
@@ -127,6 +125,7 @@ class AddNewTrainerActivity : AppCompatActivity() {
             edt_add_techCompany.error = "Required Student Facebook Link"
         }
     }
+
     private fun checkISDatePickerForDob() {
         // get the references from layout file
         textview_date = this.text_view_date_2
@@ -160,14 +159,16 @@ class AddNewTrainerActivity : AppCompatActivity() {
         })
 
     }
+
     private fun updateDateInView() {
         val myFormat = "yyyy-MM-dd" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         textview_date!!.text = sdf.format(cal.getTime())
         dob = textview_date!!.text
-        dob= sdf.format(cal.getTime())
+        dob = sdf.format(cal.getTime())
     }
-    private fun checkIsSpinnerForTrackAndBatch(){
+
+    private fun checkIsSpinnerForTrackAndBatch() {
         //course spinner
         var courseArray = resources.getStringArray(R.array.course_name)
         var courseArrayAdapter: allSpinnerAdapter = allSpinnerAdapter(this, courseArray, R.layout.text_spinner)
@@ -217,7 +218,8 @@ class AddNewTrainerActivity : AppCompatActivity() {
         }
 
     }
-    private fun addNewTrainer(){
+
+    private fun addNewTrainer() {
         val apiCalls = RestAdapter.getClient().create(ApiService::class.java)
         val loginCall = apiCalls.sendTrainerData(
             TrainerData(
@@ -236,18 +238,17 @@ class AddNewTrainerActivity : AppCompatActivity() {
                 courseId
             )
         )
-        loginCall.enqueue(object : Callback<Trainer> {
-            override fun onFailure(call: Call<Trainer>, t: Throwable) {
+        loginCall.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(this@AddNewTrainerActivity, "Response Failed", Toast.LENGTH_SHORT).show()
-                Log.d("ADD TRAINER ERROR",t.localizedMessage)
+                Log.d("ADD TRAINER ERROR", t.localizedMessage)
             }
 
-            override fun onResponse(call: Call<Trainer>, response: Response<Trainer>) {
-                //Toast.makeText(this@AddNewStudentActivity, "Response Successful", Toast.LENGTH_SHORT).show()
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                i("ResponseCode", response.code().toString())
+
                 if (response.isSuccessful) {
-                    Toast.makeText(this@AddNewTrainerActivity, "Response Successful", Toast.LENGTH_SHORT).show()
-                    var intent = Intent(this@AddNewTrainerActivity, TeacherListActivity::class.java)
-                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(this@AddNewTrainerActivity, "Add Failed", Toast.LENGTH_SHORT).show()
                 }
@@ -255,7 +256,8 @@ class AddNewTrainerActivity : AppCompatActivity() {
 
         })
     }
-    private fun clearEditText(){
+
+    private fun clearEditText() {
 
         edt_add_techName.text.clear()
 

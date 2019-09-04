@@ -85,7 +85,6 @@ class AddCourseDetailActivity : AppCompatActivity() {
             val day = course.teachingDay
             editTextName.setText(courseName)
             edt_teaching_day.setText(day)
-
             course_btn_save.text = "Update"
         }
         //newActivity
@@ -94,10 +93,7 @@ class AddCourseDetailActivity : AppCompatActivity() {
         checkISDatePickerForStartDate()
         checkISDatePickerForEndDate()
         checkIsSpinnerForTrackAndBatch()
-        course_btn_cancle.setOnClickListener {
-            onBackPressed()
-            true
-        }
+
         course_btn_save.setOnClickListener {
             if (editTextName.text.isEmpty()) {
                 editTextName.error = "Enter Course Title"
@@ -137,6 +133,7 @@ class AddCourseDetailActivity : AppCompatActivity() {
 
             })
         }
+        goBack()
 
     }
 
@@ -240,6 +237,12 @@ class AddCourseDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun goBack() {
+        course_btn_cancle.setOnClickListener {
+            onBackPressed()
+            true
+        }
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

@@ -3,6 +3,7 @@ package com.example.teamproject.network
 import com.example.teamproject.models.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -12,8 +13,7 @@ interface ApiService {
     @GET("students/{id}")
     fun getIndevidualStudent(@Path("id") id: Int): Call<StudentList>
     @POST("students")
-    fun sendStudentData(@Body data: StudentData) : Call<StudentList>
-
+    fun sendStudentData(@Body data: StudentData) : Call<ResponseBody>
     @DELETE("students/{id}")
     fun deleteIndevidualStudent(@Path("id") id: Int): Call<List<StudentList>>
 
@@ -24,7 +24,7 @@ interface ApiService {
     fun getIndevidualTrainer(@Path("id") id: Int): Call<Trainer>
 
     @POST("trainers")
-    fun sendTrainerData(@Body data: TrainerData): Call<Trainer>
+    fun sendTrainerData(@Body data: TrainerData): Call<ResponseBody>
 
     @DELETE("trainers/{id}")
     fun deleteIndevidualTrainer(@Path("id") id: Int): Call<List<Trainer>>

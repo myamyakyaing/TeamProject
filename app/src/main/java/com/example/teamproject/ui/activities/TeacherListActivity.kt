@@ -1,7 +1,6 @@
 package com.example.teamproject.ui.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,6 +9,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.teamproject.R
 import com.example.teamproject.models.Trainer
@@ -27,6 +27,7 @@ class TeacherListActivity : AppCompatActivity() {
     companion object {
         var trainer_list = emptyList<Trainer>()
     }
+
     private val trainerListAdapter: RecyclerTeacherAdapter by lazy {
         RecyclerTeacherAdapter(
             this::onClickItem,
@@ -46,11 +47,6 @@ class TeacherListActivity : AppCompatActivity() {
         loadPosts()
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        trainerListAdapter.setTrainerListItems(trainer_list)
-//    }
-
     private fun onClickItem(trainer: Trainer) {
         val apiSingleCalls = RestAdapter.getClient().create(ApiService::class.java)
         val postCall = apiSingleCalls.getIndevidualTrainer(trainer.id!!)
@@ -60,7 +56,8 @@ class TeacherListActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     var intent = TeacherProfileActivity.newActivity(
                         this@TeacherListActivity,
-                        trainer)
+                        trainer
+                    )
                     startActivity(intent)
                 } else {
                     Toast.makeText(this@TeacherListActivity, "Response Unsuccessful", Toast.LENGTH_SHORT).show()
@@ -69,7 +66,7 @@ class TeacherListActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Trainer>, t: Throwable) {
                 Log.d("Error", "Network Error")
-                Log.d("ERRRRRRRRRROOOOOOR",t.localizedMessage)
+                Log.d("ERRRRRRRRRROOOOOOR", t.localizedMessage)
             }
         })
     }
@@ -128,6 +125,11 @@ class TeacherListActivity : AppCompatActivity() {
             }
             .create()
         alertDialog.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        trainerListAdapter.setTrainerListItems(trainer_list)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

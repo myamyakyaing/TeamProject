@@ -51,7 +51,7 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
         setSupportActionBar(evaluation_bar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadEvaluation()
-        checkIsSpinnerForAll()
+
 
         e_btn_save.setOnClickListener {
             sendEvaluation()
@@ -76,6 +76,7 @@ class AddNewStudentvaluationEActivity : AppCompatActivity() {
                     for (data in evList) {
                         studentNameList.add(data!!.name!!)
                     }
+                    checkIsSpinnerForAll()
 
                 } else {
                     Toast.makeText(this@AddNewStudentvaluationEActivity, "Response Failed", Toast.LENGTH_SHORT).show()

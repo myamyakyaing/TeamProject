@@ -11,9 +11,11 @@ import javax.net.ssl.*
 object HttpClientProvider {
     fun provideOkHttpClient(): OkHttpClient {
             val builder = OkHttpClient().newBuilder()
-            builder.readTimeout(10, TimeUnit.SECONDS)
+            builder.readTimeout(60, TimeUnit.SECONDS)
+        builder.writeTimeout(60,TimeUnit.SECONDS)
             builder.connectTimeout(
-                5
+                60
+
                 , TimeUnit.SECONDS
             )
 
